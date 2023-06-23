@@ -2,8 +2,6 @@ package ru.job4j.assertj;
 
 import org.junit.jupiter.api.Test;
 
-import java.text.DecimalFormat;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BoxTest {
@@ -32,14 +30,14 @@ class BoxTest {
     void tetrahedronSquare() {
         Box box = new Box(4, 10);
         double tSquare = box.getArea();
-        assertThat(new DecimalFormat("#.##").format(tSquare)).isEqualTo("173,21");
+        assertThat(tSquare).isEqualTo(173.20508075688772);
     }
 
     @Test
     void sphereSquare() {
         Box box = new Box(0, 10);
         double tSquare = box.getArea();
-        assertThat(new DecimalFormat("#.##").format(tSquare)).isEqualTo("1256,64");
+        assertThat(tSquare).isEqualTo(1256.6370614359173);
     }
 
     @Test
