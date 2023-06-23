@@ -38,7 +38,7 @@ class BoxTest {
     void sphereSquare() {
         Box box = new Box(0, 10);
         double tSquare = box.getArea();
-        assertThat(tSquare).isEqualTo(1256.63, withPrecision(0.01d));
+        assertThat(tSquare).isEqualTo(1256.63d, withPrecision(0.01d));
     }
 
     @Test
