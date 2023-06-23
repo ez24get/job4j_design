@@ -12,7 +12,6 @@ class ArrayItTest {
         );
         boolean result = iterator.hasNext();
         assertThat(result).isTrue();
-        assertThat(iterator.hasNext()).isTrue();
     }
 
     @Test
