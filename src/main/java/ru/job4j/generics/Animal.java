@@ -1,6 +1,6 @@
 package ru.job4j.generics;
 
-public class Animal{
+public class Animal {
     private final String name;
 
     public Animal(String name) {
@@ -13,8 +13,8 @@ public class Animal{
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Animal{"
+                + "name='" + name + '\''
+                + '}';
     }
 }
