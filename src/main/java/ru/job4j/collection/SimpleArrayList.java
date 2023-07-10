@@ -30,12 +30,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public T remove(int index) {
         T value = get(index);
         if (index < size) {
-            int containerLenght = size - 1;
+            int containerLenght = size - 1 - index;
             System.arraycopy(container
                     , index + 1
                     , container
                     , index
-                    , containerLenght - index);
+                    , containerLenght);
         }
         container[--size] = null;
         modCount++;
