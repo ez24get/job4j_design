@@ -72,7 +72,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         };
     }
 
-    public void extendContainer(int size) {
+    private void extendContainer(int size) {
         if (container.length == 0) {
             container = Arrays.copyOf(container, 10);
         } else if (container.length == size) {
