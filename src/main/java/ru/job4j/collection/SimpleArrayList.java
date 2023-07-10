@@ -31,11 +31,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         T value = get(index);
         if (index < size) {
             int containerLenght = size - 1 - index;
-            System.arraycopy(container
-                    , index + 1
-                    , container
-                    , index
-                    , containerLenght);
+            System.arraycopy(container, index + 1, container, index, containerLenght);
         }
         container[--size] = null;
         modCount++;
