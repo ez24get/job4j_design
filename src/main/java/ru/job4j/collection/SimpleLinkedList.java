@@ -24,18 +24,11 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         if (head == null) {
             head = newNode;
         } else {
-            /*while (iterator().hasNext()) {
-                if (head.next == null) {
-                    head.next = newNode;
-                    break;
-                }
-                iterator().next();
-            }*/
-            for (int i = 0; i < size - 1; i++) {
-                if (get(i) == null) {
-                    head.next = newNode;
-                }
+            Node<E> tmp = head;
+            while (tmp.next != null) {
+                tmp = tmp.next;
             }
+            tmp.next = newNode;
         }
         size++;
         modCount++;
@@ -56,7 +49,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         return new Iterator<E>() {
             Node<E> node = head;
             final int expectedModcount = modCount;
-            int cursor = 0;
 
             @Override
             public boolean hasNext() {
