@@ -24,7 +24,18 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         if (head == null) {
             head = newNode;
         } else {
-            head.next = newNode;
+            /*while (iterator().hasNext()) {
+                if (head.next == null) {
+                    head.next = newNode;
+                    break;
+                }
+                iterator().next();
+            }*/
+            for (int i = 0; i < size - 1; i++) {
+                if (get(i) == null) {
+                    head.next = newNode;
+                }
+            }
         }
         size++;
         modCount++;
