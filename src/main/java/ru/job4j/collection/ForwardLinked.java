@@ -42,6 +42,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         return rsl.item;
     }
 
+    public void addFirst(T value) {
+            head = new Node<>(value, head);
+    }
+
     public T deleteFirst() {
         if (head == null) {
             throw new NoSuchElementException("No element found");
