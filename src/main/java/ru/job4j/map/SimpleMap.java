@@ -25,10 +25,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         expand();
-        boolean rsl = false;
-        int index = indexFor(hash(key));
-        if (table[index] == null) {
-            table[index] = new MapEntry<>(key, value);
+        boolean rsl = table[indexOf(key)] == null;
+        if (table[indexOf(key)] == null) {
+            table[indexOf(key)] = new MapEntry<>(key, value);
             rsl = true;
             count++;
             modCount++;
@@ -45,6 +44,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return hash & (capacity - 1);
     }
 
+    private int indexOf(K key) {
+        return indexFor(hash(key));
+    }
+
+    private boolean hashCodeOf(K key) {
+        return hash(table[indexOf(key)].key) == hash(key) && Objects.equals(table[indexOf(key)].key, key);
+        /*boolean rsl = false;
+        if (key.hashCode() != 0) {
+            rsl = table[indexOf(key)].key.hashCode() == key.hashCode();
+        }
+        return rsl;*/
+    }
+
     private void expand() {
         if (count >= table.length * LOAD_FACTOR) {
             capacity *= 2;
@@ -52,9 +64,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             for (MapEntry<K, V> kvMapEntry : table) {
                 if (kvMapEntry != null) {
                     int index = indexFor(hash(kvMapEntry.key));
-                    if (newTable[index] == null) {
-                        newTable[index] = kvMapEntry;
-                    }
+                    newTable[index] = kvMapEntry;
                 }
             }
             table = newTable;
@@ -64,10 +74,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        int index = indexFor(hash(key));
-        if (table[index] != null) {
-            if (hash(table[index].key) == hash(key) && Objects.equals(table[index].key, key)) {
-                value = table[index].value;
+        if (table[indexOf(key)] != null) {
+            if (hashCodeOf(key)) {
+                value = table[indexOf(key)].value;
             }
         }
         return value;
