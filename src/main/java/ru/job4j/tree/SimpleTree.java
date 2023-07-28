@@ -17,11 +17,13 @@ public class SimpleTree<E> implements Tree<E> {
         if (parentNode.isEmpty()) {
             rsl = false;
         }
-        Node<E> parentNodeValue = parentNode.get();
-        if (findBy(child).isPresent()) {
-            rsl = false;
+        if (parentNode.isPresent()) {
+            Node<E> parentNodeValue = parentNode.get();
+            if (findBy(child).isPresent()) {
+                rsl = false;
+            }
+            parentNodeValue.children.add(new Node<>(child));
         }
-        parentNodeValue.children.add(new Node<>(child));
         return rsl;
     }
 
