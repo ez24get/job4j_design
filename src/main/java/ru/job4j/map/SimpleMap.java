@@ -25,9 +25,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         expand();
-        boolean rsl = table[indexOf(key)] == null;
-        if (table[indexOf(key)] == null) {
-            table[indexOf(key)] = new MapEntry<>(key, value);
+        int index = indexOf(key);
+        boolean rsl = table[index] == null;
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
             rsl = true;
             count++;
             modCount++;
@@ -36,7 +37,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int hash(K key) {
-        int hashCode = key == null ? 0 : key.hashCode();
+        int hashCode = Objects.hashCode(key);
         return hashCode ^ (hashCode >>> 16);
     }
 
@@ -82,8 +83,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         boolean rsl = false;
         int index = indexFor(hash(key));
-        if (table[index] != null && hash(table[index].key)
-                == hash(key) && Objects.equals(table[index].key, key)) {
+        if (table[index] != null
+                && hashCodeOf(table[index].key) == hashCodeOf(key)
+                && Objects.equals(table[index].key, key)) {
             table[index] = null;
             rsl = true;
             count--;
