@@ -49,12 +49,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private boolean hashCodeOf(K key) {
-        return hash(table[indexOf(key)].key) == hash(key) && Objects.equals(table[indexOf(key)].key, key);
-        /*boolean rsl = false;
-        if (key.hashCode() != 0) {
-            rsl = table[indexOf(key)].key.hashCode() == key.hashCode();
-        }
-        return rsl;*/
+        return Objects.hashCode(table[indexOf(key)].key) == Objects.hashCode(key)
+                && Objects.equals(table[indexOf(key)].key, key);
     }
 
     private void expand() {
