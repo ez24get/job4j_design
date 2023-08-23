@@ -20,14 +20,8 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = read.readLine()) != null) {
-                String[] parts = line.split("=");
+                String[] parts = line.split("=", 2);
                 if (parts.length == 2 && parts[0].length() != 0 && parts[1].length() != 0) {
-                    values.put(parts[0], parts[1]);
-                } else if (parts.length > 2) {
-                    int length = parts.length;
-                    for (int i = 1; i < length; i++) {
-                        parts[1] = parts[1] + "=" + parts[i];
-                    }
                     values.put(parts[0], parts[1]);
                 }
             }
