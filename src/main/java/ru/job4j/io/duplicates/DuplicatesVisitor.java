@@ -19,12 +19,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         return super.visitFile(file, attrs);
     }
 
-    public Map<FileProperty, List<Path>> getDuplicates() {
-        return duplicates;
-    }
-
     public void printDuplicates() {
-        Map<FileProperty, List<Path>> duplicates = getDuplicates();
         for (Map.Entry<FileProperty, List<Path>> entry : duplicates.entrySet()) {
             if (entry.getValue().size() > 1) {
                 System.out.println(entry.getKey().getName());
