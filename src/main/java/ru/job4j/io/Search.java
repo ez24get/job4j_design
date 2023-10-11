@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Search {
@@ -24,13 +24,10 @@ public class Search {
     }
 
     public static void validate(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        if (args.length != 1 && !Objects.equals(args[1], ".js")) {
+            throw new IllegalArgumentException("Insufficient number of arguments or incorrect file extension format");
         }
         File file = new File(args[0]);
-        if (Arrays.stream(args).noneMatch(a -> a.contains(".js"))) {
-            throw new IllegalArgumentException("Does not contain .js");
-        }
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
