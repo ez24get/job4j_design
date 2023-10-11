@@ -24,7 +24,7 @@ public class Search {
     }
 
     public static void validate(String[] args) {
-        if (args.length == 1) {
+        if (args.length == 2) {
             throw new IllegalArgumentException("Insufficient number of arguments or incorrect file extension format");
         }
         if (!Objects.equals(args[1], ".js")) {
