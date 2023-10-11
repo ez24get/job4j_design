@@ -87,7 +87,7 @@ class ArgsNameTest {
     }
 
     @Test
-    void NoKeyThenExceptionThrown() {
+    void noKeyThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"-ggvp=1337", "-=="}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageMatching("^.+")
@@ -95,7 +95,7 @@ class ArgsNameTest {
     }
 
     @Test
-    void NoValueThenExceptionThrown() {
+    void noValueThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"-Xmx=", "-http=12"}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageMatching("^.+")
@@ -103,7 +103,7 @@ class ArgsNameTest {
     }
 
     @Test
-    void NoEqualSignThenExceptionThrown() {
+    void noEqualSignThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"-thg:-:gdf"}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageMatching("^.+")
@@ -111,7 +111,7 @@ class ArgsNameTest {
     }
 
     @Test
-    void NoHyphenPrefixThenExceptionThrown() {
+    void noHyphenPrefixThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"John=Dough"}))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageMatching("^.+")
