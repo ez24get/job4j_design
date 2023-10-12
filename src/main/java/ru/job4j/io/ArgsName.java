@@ -8,14 +8,10 @@ public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
 
     public String get(String key) {
-        String keyFinal = key;
-        if (!key.startsWith("-")) {
-            keyFinal = "-" + key;
-        }
-        if (!values.containsKey(keyFinal)) {
+        if (!values.containsKey(key)) {
             throw new IllegalArgumentException("This key: '" + key + "' is missing");
         }
-        return values.get(keyFinal);
+        return values.get(key);
     }
 
     private void parse(String[] args) {
@@ -23,7 +19,7 @@ public class ArgsName {
             check(line);
             String[] parts = line.split("=", 2);
             checkParts(parts, line);
-            values.put(parts[0], parts[1]);
+            values.put(parts[0].substring(1), parts[1]);
         }
     }
 
