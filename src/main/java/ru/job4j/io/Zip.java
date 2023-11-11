@@ -1,47 +1,51 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.zip.DataFormatException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
     public void packFiles(List<Path> sources, File target) {
-        for (Path path : sources) {
-            try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+            for (Path path : sources) {
                 zip.putNextEntry(new ZipEntry(String.valueOf(path)));
                 try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(path.toFile()))) {
                     zip.write(out.readAllBytes());
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
-    private List<Path> getSources() throws IOException {
-        Path start = Paths.get(".");
-        return new ArrayList<>(Search.search(start, path -> !path.toFile().getName().endsWith(".class")));
+    private List<Path> getSources(String[] args) throws IOException {
+        ArgsName ext = ArgsName.of(args);
+        return new ArrayList<>(Search.search(Path.of(ext.get("d")),
+                path -> !path.toFile().getName().endsWith(ext.get("e"))));
     }
 
-    private void checkArgs(String[] args) {
+    private void checkArgs(String[] args) throws NotDirectoryException, DataFormatException {
         ArgsName jv = ArgsName.of(args);
         File directory = new File(jv.get("d"));
         if (!directory.exists()) {
-            throw new IllegalArgumentException("Directory does not exist");
+            throw new NoSuchElementException("Directory does not exist.");
         }
         if (!directory.isDirectory()) {
-            throw new IllegalArgumentException("Directory is a file");
+            throw new NotDirectoryException("Directory is a file");
         }
         if (!jv.get("e").contentEquals(".class")) {
-            throw new IllegalArgumentException("Argument \"-e\" must contain only \".class\" format");
+            throw new DataFormatException("Argument \"-e\" must contain only \".class\" format");
         }
         if (!jv.get("o").endsWith(".zip")) {
-            throw new IllegalArgumentException("Argument \"-o\" must contain only \".zip\" format");
+            throw new DataFormatException("Argument \"-o\" must contain only \".zip\" format");
         }
     }
 
@@ -56,7 +60,7 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DataFormatException {
         Zip zip = new Zip();
         zip.packSingleFile(
                 new File("./pom.xml"),
@@ -65,6 +69,6 @@ public class Zip {
         ArgsName argsName = ArgsName.of(args);
         Zip zip2 = new Zip();
         zip2.checkArgs(args);
-        zip2.packFiles(zip2.getSources(), new File(argsName.get("o")));
+        zip2.packFiles(zip2.getSources(args), new File(argsName.get("o")));
     }
 }
