@@ -35,7 +35,7 @@ public class ConsoleChat {
                 chatLog.add("-" + "Продолжаем");
                 pause = false;
                 askQuestion();
-            } else {
+            } else if (!scanner.hasNext(STOP) && !scanner.hasNext(CONTINUE)){
                 String answer = giveAnswer();
                 chatLog.add("-" + answer);
                 System.out.println(answer);
@@ -47,7 +47,7 @@ public class ConsoleChat {
 
     private void askQuestion() {
         System.out.println(":");
-        scanner.nextLine();
+        chatLog.add(scanner.nextLine());
     }
 
     private String giveAnswer() {
@@ -79,8 +79,8 @@ public class ConsoleChat {
     }
 
     public static void main(String[] args) {
-        ConsoleChat cc = new ConsoleChat("/Users/michael/job4j_design/src/main/java/ru/job4j/io/consoleChat/ChatLog.txt",
-                "/Users/michael/job4j_design/src/main/java/ru/job4j/io/consoleChat/Phrases.txt");
+        ConsoleChat cc = new ConsoleChat("/Users/michael/job4j_design/src/main/java/ru/job4j/io/consolechat/ChatLog.txt",
+                "/Users/michael/job4j_design/src/main/java/ru/job4j/io/consolechat/Phrases.txt");
         cc.run();
     }
 }
