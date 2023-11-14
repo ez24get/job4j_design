@@ -35,7 +35,7 @@ public class ConsoleChat {
                 chatLog.add("-" + "Продолжаем");
                 pause = false;
                 askQuestion();
-            } else if (!scanner.hasNext(STOP) && !scanner.hasNext(CONTINUE)){
+            } else if (!scanner.hasNext(STOP) && !scanner.hasNext(CONTINUE)) {
                 String answer = giveAnswer();
                 chatLog.add("-" + answer);
                 System.out.println(answer);
