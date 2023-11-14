@@ -1,4 +1,4 @@
-package ru.job4j.io.consoleChat;
+package ru.job4j.io.consolechat;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -31,8 +31,8 @@ public class ConsoleChat {
                 askQuestion();
             } else if (pause && scanner.hasNext(CONTINUE)) {
                 chatLog.add("-" + CONTINUE);
-                int answer = new Random().nextInt(3);
-                System.out.println(phrases.get(answer));
+                System.out.println("Продолжаем");
+                chatLog.add("-" + "Продолжаем");
                 pause = false;
                 askQuestion();
             } else {
@@ -45,12 +45,12 @@ public class ConsoleChat {
         saveLog(chatLog);
     }
 
-    private String askQuestion() {
+    private void askQuestion() {
         System.out.println(":");
-        return scanner.nextLine();
+        scanner.nextLine();
     }
 
-    private String giveAnswer () {
+    private String giveAnswer() {
         int answer = new Random().nextInt(3);
         return phrases.get(answer);
     }
