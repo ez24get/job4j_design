@@ -22,20 +22,17 @@ public class ConsoleChat {
     public void run() {
         System.out.println("Введите текст: ");
         phrases.addAll(readPhrases());
-        boolean pause = true;
         while (!scanner.hasNext(OUT)) {
             if (scanner.hasNext(STOP)) {
-                System.out.println(" ");
                 chatLog.add("-" + STOP);
-                pause = true;
-                askQuestion();
-            } else if (pause && scanner.hasNext(CONTINUE)) {
-                chatLog.add("-" + CONTINUE);
+                while (!scanner.hasNext(CONTINUE)) {
+                    System.out.println(" ");
+                    chatLog.add("- ");
+                    askQuestion();
+                }
                 System.out.println("Продолжаем");
                 chatLog.add("-" + "Продолжаем");
-                pause = false;
-                askQuestion();
-            } else if (!scanner.hasNext(STOP) && !scanner.hasNext(CONTINUE)) {
+            } else {
                 String answer = giveAnswer();
                 chatLog.add("-" + answer);
                 System.out.println(answer);
