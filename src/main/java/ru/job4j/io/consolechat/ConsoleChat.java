@@ -39,6 +39,7 @@ public class ConsoleChat {
                 askQuestion();
             }
         }
+        chatLog.add("-" + OUT);
         saveLog(chatLog);
     }
 
