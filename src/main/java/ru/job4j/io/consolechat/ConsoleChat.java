@@ -29,8 +29,6 @@ public class ConsoleChat {
                     chatLog.add("- ");
                     askQuestion();
                 }
-                System.out.println("Продолжаем");
-                chatLog.add("-" + "Продолжаем");
             } else {
                 String answer = giveAnswer();
                 chatLog.add("-" + answer);
