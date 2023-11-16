@@ -48,7 +48,7 @@ public class ConsoleChat {
     }
 
     private String giveAnswer() {
-        int answer = new Random().nextInt(3);
+        int answer = new Random().nextInt(phrases.size());
         return phrases.get(answer);
     }
 
