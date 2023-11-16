@@ -24,7 +24,6 @@ public class ConsoleChat {
         phrases.addAll(readPhrases());
         while (!scanner.hasNext(OUT)) {
             if (scanner.hasNext(STOP)) {
-                chatLog.add("-" + STOP);
                 while (!scanner.hasNext(CONTINUE)) {
                     System.out.println(" ");
                     chatLog.add("- ");
