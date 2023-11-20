@@ -26,14 +26,14 @@ public class ConsoleChat {
             if (scanner.hasNext(STOP)) {
                 while (!scanner.hasNext(CONTINUE)) {
                     System.out.println(" ");
-                    chatLog.add("- ");
                     askQuestion();
+                    chatLog.add("- ");
                 }
             } else {
                 String answer = giveAnswer();
+                askQuestion();
                 chatLog.add("-" + answer);
                 System.out.println(answer);
-                askQuestion();
             }
         }
         chatLog.add("-" + OUT);
@@ -55,7 +55,7 @@ public class ConsoleChat {
         try (BufferedReader read = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
             String line;
             while ((line = read.readLine()) != null) {
-                answers.add(Arrays.toString(line.split("\n")));
+                answers.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
