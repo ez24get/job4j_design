@@ -40,13 +40,16 @@ public class CSVReader {
         String head = String.join(argsName.get("delimiter"), headLineOut) + System.lineSeparator();
         String body = String.join("", bodyOut);
         String outFinal = head + body;
-        try (PrintStream stream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
-            stream.print(outFinal);
+        if (argsName.get("out").contentEquals("stdout")) {
+            System.out.println(outFinal);
+        } else {
+            try (PrintStream stream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
+                stream.print(outFinal);
+            }
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        ArgsName argsName = ArgsName.of(args);
+    private static void validate(ArgsName argsName) throws InvalidObjectException {
         File file = new File(argsName.get("path"));
         File outFile = new File(argsName.get("out"));
         if (!file.exists()) {
@@ -55,12 +58,17 @@ public class CSVReader {
         if (!file.isFile()) {
             throw new InvalidObjectException("Input object is not a file");
         }
-        if (!outFile.exists()) {
-            throw new NoSuchElementException("Output file does not exist.");
+        if (!outFile.exists() || !argsName.get("out").contentEquals("stdout")) {
+            throw new NoSuchElementException("Output file does not exist/not a console output.");
         }
-        if (!outFile.isFile()) {
-            throw new InvalidObjectException("Output object is not a file");
+        if (!outFile.isFile() || !argsName.get("out").contentEquals("stdout")) {
+            throw new InvalidObjectException("Output object is not a file/not a console output.");
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        ArgsName argsName = ArgsName.of(args);
+        validate(argsName);
         handle(argsName);
     }
 }
