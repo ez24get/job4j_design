@@ -21,7 +21,7 @@ public class CSVReader {
         for (String filter : filters) {
             for (int j = 0; j < headLine.size(); j++) {
                 String line = headLine.get(j);
-                if (filter.equals(line)) {
+                if (line.contentEquals(filter)) {
                     headLineOut.add(line);
                     index.add(j);
                 }
@@ -40,7 +40,7 @@ public class CSVReader {
         String head = String.join(argsName.get("delimiter"), headLineOut) + System.lineSeparator();
         String body = String.join("", bodyOut);
         String outFinal = head + body;
-        if (argsName.get("out").equals("stdout")) {
+        if ("stdout".contentEquals(argsName.get("out"))) {
             System.out.println(outFinal);
         } else {
             try (PrintStream stream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
@@ -58,10 +58,10 @@ public class CSVReader {
         if (!file.isFile()) {
             throw new InvalidObjectException("Input object is not a file");
         }
-        if (!outFile.exists() || !argsName.get("out").contentEquals("stdout")) {
+        if (!outFile.exists() || !"stdout".contentEquals(argsName.get("out"))) {
             throw new NoSuchElementException("Output file does not exist/not a console output.");
         }
-        if (!outFile.isFile() || !argsName.get("out").contentEquals("stdout")) {
+        if (!outFile.isFile() || !"stdout".contentEquals(argsName.get("out"))) {
             throw new InvalidObjectException("Output object is not a file/not a console output.");
         }
     }
