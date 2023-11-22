@@ -1,15 +1,12 @@
 package ru.job4j.io;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 
 public class CSVReader {
-
     public static void handle(ArgsName argsName) throws Exception {
         List<String> input = new ArrayList<>();
-        List<String> headLineOut = new ArrayList<>();
+        List<String> headLineOut = new ArrayList<>() ;
         List<String> bodyOut = new ArrayList<>();
         List<Integer> index = new ArrayList<>();
         String[] filterParts = argsName.get("filter").split(",");
@@ -21,12 +18,12 @@ public class CSVReader {
             }
         }
         List<String> headLine = new ArrayList<>(List.of(input.get(0).split(argsName.get("delimiter"))));
-        for (int i = 0; i < headLine.size(); i++) {
-            String line = headLine.get(i);
-            for (String filter : filters) {
+        for (String filter : filters) {
+            for (int j = 0; j < headLine.size(); j++) {
+                String line = headLine.get(j);
                 if (filter.contentEquals(line)) {
                     headLineOut.add(line);
-                    index.add(i);
+                    index.add(j);
                 }
             }
         }
@@ -50,6 +47,20 @@ public class CSVReader {
 
     public static void main(String[] args) throws Exception {
         ArgsName argsName = ArgsName.of(args);
+        File file = new File(argsName.get("path"));
+        File outFile = new File(argsName.get("out"));
+        if (!file.exists()) {
+            throw new NoSuchElementException("Input file does not exist.");
+        }
+        if (!file.isFile()) {
+            throw new InvalidObjectException("Input object is not a file");
+        }
+        if (!outFile.exists()) {
+            throw new NoSuchElementException("Output file does not exist.");
+        }
+        if (!outFile.isFile()) {
+            throw new InvalidObjectException("Output object is not a file");
+        }
         handle(argsName);
     }
 }
