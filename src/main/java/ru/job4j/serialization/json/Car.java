@@ -7,14 +7,14 @@ public class Car {
     private final String brand;
     private final int year;
     private final DealershipInfo info;
-    private final String[] defects;
+    private final String[] defect;
 
-    public Car(boolean isNew, String brand, int year, DealershipInfo info, String[] defects) {
+    public Car(boolean isNew, String brand, int year, DealershipInfo info, String[] defect) {
         this.isNew = isNew;
         this.brand = brand;
         this.year = year;
         this.info = info;
-        this.defects = defects;
+        this.defect = defect;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Car {
                 + ", brand=" + brand
                 + ", year=" + year
                 + ", info=" + info
-                + ", defects=" + Arrays.toString(defects)
+                + ", defects=" + Arrays.toString(defect)
                 + '}';
     }
 }

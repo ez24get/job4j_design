@@ -35,10 +35,20 @@ public class Main {
                         + "{"
                         + "\"name\":\"Borishof\""
                         + "},"
-                        + "\"defects\":"
+                        + "\"defect\":"
                         + "[\"Right front passenger door\",\"Headlights\"]"
                         + "}";
         final Car jsonToCar = gson2.fromJson(carJSon, Car.class);
         System.out.println(jsonToCar);
+        final String carXML = """
+                <?xml version="1.1" encoding="UTF-8" ?>
+                <car isNew="false" brand="Ford" year="2020">
+                    <info name="Borishof"/>
+                    <defects>
+                        <defect>Right front passenger door</defect>
+                        <defect>Headlights</defect>
+                    </defects>
+                </car>""";
+        System.out.println(carXML);
     }
 }
