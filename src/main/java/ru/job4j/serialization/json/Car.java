@@ -17,6 +17,26 @@ public class Car {
         this.defect = defect;
     }
 
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public DealershipInfo getInfo() {
+        return info;
+    }
+
+    public String[] getDefect() {
+        return defect;
+    }
+
     @Override
     public String toString() {
         return "Car{"

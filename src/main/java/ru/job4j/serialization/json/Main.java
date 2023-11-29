@@ -2,6 +2,7 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,5 +51,13 @@ public class Main {
                     </defects>
                 </car>""";
         System.out.println(carXML);
+        JSONObject jsonObjectCar = new JSONObject();
+        jsonObjectCar.put("isNew", car.isNew());
+        jsonObjectCar.put("brand", car.getBrand());
+        jsonObjectCar.put("year", car.getYear());
+        jsonObjectCar.put("info", car.getInfo());
+        jsonObjectCar.put("defect", car.getDefect());
+        System.out.println(jsonObjectCar);
+        System.out.println(new JSONObject(car));
     }
 }
