@@ -1,0 +1,1 @@
+INSERT INTO animal(name, area) VALUES('Гризли', 'США');
