@@ -7,16 +7,16 @@ create table reg(
     id serial primary key,
 	owner text,
     licence_plate varchar(255),
-    vin_id int references vin(id)
+    vin_id int references vin(id) unique
 );
 
 insert into vin(number) values (123456);
 insert into vin(number) values (123457);
 insert into vin(number) values (123458);
 
-insert into reg(owner, licence_plate) values ('Ivan', 123);
-insert into reg(owner, licence_plate) values ('Boris', 223);
-insert into reg(owner, licence_plate) values ('Petr', 333);
+insert into reg(owner, licence_plate, vin_id) values ('Ivan', 123, 1);
+insert into reg(owner, licence_plate, vin_id) values ('Boris', 223, 2);
+insert into reg(owner, licence_plate, vin_id) values ('Petr', 333, 3);
 insert into reg(owner) values ('Vasya');
 insert into reg(owner) values ('Anya');
 
