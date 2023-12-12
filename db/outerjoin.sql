@@ -43,4 +43,4 @@ create table teens(
 	gender text
 );
 
-select * from teens.name cross join teens.gender;
+select teens.name, teens.gender * from teens cross join teens.name, teens.gender;
