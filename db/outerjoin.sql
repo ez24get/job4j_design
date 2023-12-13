@@ -40,7 +40,17 @@ where d.name is null;
 create table teens(
     id serial primary key,
     name varchar(255), 
-	gender text
+	gender int
 );
 
-select teens.name, teens.gender * from teens cross join teens.name, teens.gender;
+insert into teens(name, gender) values ('teen 1', 1);
+insert into teens(name, gender) values ('teen 2', 2);
+insert into teens(name, gender) values ('teen 3', 1);
+insert into teens(name, gender) values ('teen 4', 2);
+insert into teens(name, gender) values ('teen 5', 1);
+insert into teens(name, gender) values ('teen 6', 2);
+
+select p.name, p.gender 
+from teens 
+cross join teens pp.name, pp.gender 
+where p.gender != pp.gender;
