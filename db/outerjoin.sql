@@ -50,7 +50,7 @@ insert into teens(name, gender) values ('teen 4', 2);
 insert into teens(name, gender) values ('teen 5', 1);
 insert into teens(name, gender) values ('teen 6', 2);
 
-select p.name, p.gender 
-from teens 
-cross join teens pp.name, pp.gender 
-where p.gender != pp.gender;
+select p1.name, p2.name 
+from teens p1 
+cross join teens p2 
+where p1.gender > p2.gender;
