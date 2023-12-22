@@ -35,9 +35,7 @@ create or replace function taxbefore()
     returns trigger as
 $$
     BEGIN
-        update products
-        set price = price + price * 0.2
-        where id = new.id;
+        new.price = new.price + new.price * 0.2
         return NEW;
     END;
 $$
@@ -53,12 +51,8 @@ create or replace function triggercopy()
     returns trigger as
 $$
     BEGIN
-        update history_of_price
-        set name = product.name,
-		set price = product.price,
-		set date = current_date
-        where id = new.id;
-        return NEW;
+        insert into history_of_price (name, price, date)
+		values (product.name, product.price, current_date);
     END;
 $$
 LANGUAGE 'plpgsql';
