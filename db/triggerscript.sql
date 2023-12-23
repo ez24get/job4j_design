@@ -52,7 +52,7 @@ create or replace function triggercopy()
 $$
     BEGIN
         insert into history_of_price (name, price, date)
-		values (product.name, product.price, current_date);
+		values (new.name, new.price, current_date);
     END;
 $$
 LANGUAGE 'plpgsql';
