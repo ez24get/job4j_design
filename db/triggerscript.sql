@@ -62,3 +62,14 @@ create trigger copytrigger
     on products
     for each row
     execute procedure triggercopy();
+
+create or replace function f_delete_data(i_name varchar, prod varchar, i_count integer, i_price integer)
+returns void
+language 'plpgsql'
+as
+$$
+    begin
+        delete from products
+        where count > 10;
+    end;
+$$;
