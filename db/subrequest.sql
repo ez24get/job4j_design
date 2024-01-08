@@ -31,7 +31,7 @@ insert into orders_sub (amount, customer_id) values (4, 3);
 insert into orders_sub (amount, customer_id) values (1, 4);
 insert into orders_sub (amount, customer_id) values (8, 5);
 insert into orders_sub (amount, customer_id) values (0, 6);
-insert into orders_sub (customer_id) values (7);
 
-select first_name, last_name, age from customers
-where orders_sub.amount not in (select * FROM orders_sub);
+select first_name, last_name, age
+from customers
+where customers.id not in (select customer_id from orders_sub);
