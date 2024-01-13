@@ -29,8 +29,7 @@ public class TableEditor implements AutoCloseable {
 
     public void createStatement(String sqlInput) {
         try (Statement statement = connection.createStatement()) {
-            String sql = String.format(sqlInput);
-            statement.execute(sql);
+            statement.execute(sqlInput);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
